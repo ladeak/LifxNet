@@ -3,6 +3,9 @@ name: CD
 on:
   release:
     types: [created]
+    
+env:
+  WORKING_DIRECTORY: src/LifxNet/
 
 jobs:
   deploy:
@@ -17,12 +20,12 @@ jobs:
     - name: Set VERSION variable from tag
       run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
     - name: Build
-      run: dotnet build --configuration Release --no-restore -p:Version=${VERSION}
+      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration Release --no-restore -p:Version=${VERSION}
     - name: Create package
-      run: dotnet pack --configuration Release --no-build --include-symbols -p:Version=${VERSION}
+      run: dotnet pack "${{ env.WORKING_DIRECTORY }}" --configuration Release --no-build --include-symbols -p:Version=${VERSION}
     - name: Publish
-      run: dotnet nuget push **/bin/Release/*.nupkg --source https://nuget.pkg.github.com/ladeak/index.json --api-key $github_api_key --skip-duplicate
+      run: dotnet nuget push "${{ env.WORKING_DIRECTORY }}" **/bin/Release/*.nupkg --source https://nuget.pkg.github.com/ladeak/index.json --api-key $github_api_key --skip-duplicate
       env:
         github_api_key: ${{ secrets.PACKAGING_API_KEY }}
