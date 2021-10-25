@@ -5,7 +5,7 @@ on:
     types: [created]
     
 env:
-  WORKING_DIRECTORY: src/LifxNet/
+  WORKING_DIRECTORY: src/LifxNet
 
 jobs:
   deploy:
