@@ -1,0 +1,28 @@
+name: CD
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.3.5
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1.8.2
+      with:
+        dotnet-version: '6.0.x'
+        include-prerelease: true
+    - name: Set VERSION variable from tag
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore -p:Version=${VERSION}
+    - name: Create package
+      run: dotnet pack --configuration Release --no-build --include-symbols -p:Version=${VERSION}
+    - name: Publish
+      run: dotnet nuget push **/bin/Release/*.nupkg --source https://nuget.pkg.github.com/ladeak/index.json --api-key $github_api_key --skip-duplicate
+      env:
+        github_api_key: ${{ secrets.PACKAGING_API_KEY }}
