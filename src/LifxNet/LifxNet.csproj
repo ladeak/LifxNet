@@ -12,8 +12,8 @@
     <Copyright>© Morten Nielsen 2015-2020</Copyright>
     <PackageTags>iot, lifx home automation uwp winphone winrt</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/dotMorten/LifxNet</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/dotMorten/LifxNet</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ladeak/LifxNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ladeak/LifxNet</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <RepositoryType>git</RepositoryType>
