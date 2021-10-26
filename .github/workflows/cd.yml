@@ -23,4 +23,4 @@ jobs:
     - name: Create package
       run: dotnet pack src/LifxNet/LifxNet.csproj --configuration Release --no-build --include-symbols -p:Version=${VERSION}
     - name: Publish
-      run: dotnet nuget push **/bin/Release/*.nupkg --source https://nuget.pkg.github.com/ladeak/index.json --api-key ${{ secrets.PACKAGING_API_KEY }} --skip-duplicate
+      run: dotnet nuget push **/bin/Release/*.nupkg --source https://nuget.pkg.github.com/ladeak/index.json --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
